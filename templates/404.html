@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% from "partials/icons.html" import icon %}
+
+{% block content %}
+<div class="tech-grid flex min-h-screen flex-col items-center justify-center bg-background px-5 text-center text-foreground">
+  <p class="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-4 py-2 font-mono text-xs uppercase text-muted-foreground">
+    <span class="size-1.5 rounded-full bg-primary"></span> Erro 404
+  </p>
+  <h1 class="mt-6 text-4xl font-semibold leading-tight sm:text-6xl">
+    Página não encontrada<span class="text-primary">.</span>
+  </h1>
+  <p class="mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
+    O endereço acessado não existe ou foi movido. Escolha uma das páginas abaixo para continuar.
+  </p>
+  <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+    <a
+      href="{{ url_for('index') }}"
+      class="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-2.5 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
+    >
+      {{ icon('arrow-left', 'size-4') }} Human In
+    </a>
+    <a
+      href="{{ url_for('planpaz') }}"
+      class="inline-flex items-center justify-center gap-2 rounded-full border border-input bg-background px-8 py-2.5 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+    >
+      Conheça o PlanPaz {{ icon('arrow-right', 'size-4') }}
+    </a>
+  </div>
+</div>
+{% endblock %}
