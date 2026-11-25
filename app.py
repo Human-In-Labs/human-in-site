@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 from pathlib import Path
 
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, redirect, render_template, url_for
 from werkzeug.middleware.proxy_fix import ProxyFix
 from whitenoise import WhiteNoise
 
@@ -42,18 +42,6 @@ def create_app() -> Flask:
         return response
 
     @flask_app.get("/")
-    def index():
-        return render_template(
-            "index.html",
-            meta=data.COMPANY_META,
-            nav_links=data.COMPANY_NAV,
-            stats=data.COMPANY_STATS,
-            conception_cards=data.CONCEPTION_CARDS,
-            values=data.VALUES,
-            team_members=data.TEAM_MEMBERS,
-        )
-
-    @flask_app.get("/planpaz")
     def planpaz():
         return render_template(
             "planpaz.html",
@@ -69,6 +57,22 @@ def create_app() -> Flask:
             impacts=data.PLANPAZ_IMPACTS,
             differentials=data.PLANPAZ_DIFFERENTIALS,
         )
+
+    @flask_app.get("/humanin")
+    def index():
+        return render_template(
+            "index.html",
+            meta=data.COMPANY_META,
+            nav_links=data.COMPANY_NAV,
+            stats=data.COMPANY_STATS,
+            conception_cards=data.CONCEPTION_CARDS,
+            values=data.VALUES,
+            team_members=data.TEAM_MEMBERS,
+        )
+
+    @flask_app.get("/planpaz")
+    def planpaz_redirect():
+        return redirect(url_for("planpaz"))
 
     @flask_app.get("/health")
     def health():

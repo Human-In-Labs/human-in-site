@@ -1,6 +1,6 @@
 # Human In & PlanPaz — Heroku-Ready Python Site
 
-Clone em **Python (Flask + Jinja2 + WhiteNoise + Gunicorn)** das páginas institucionais da **Human In** (`/`) e do aplicativo **PlanPaz** (`/planpaz`), com todos os arquivos estáticos (CSS e imagens) hospedados localmente e prontos para deploy no Heroku.
+Clone em **Python (Flask + Jinja2 + WhiteNoise + Gunicorn)** das páginas do aplicativo **PlanPaz** (`/`) e institucional da **Human In** (`/humanin`), com todos os arquivos estáticos (CSS e imagens) hospedados localmente e prontos para deploy na Vercel ou Heroku.
 
 ## Estrutura do projeto
 
@@ -21,8 +21,8 @@ human-in-site/
 │   └── images/             # Logotipos, favicon, og-image e telas do PlanPaz
 ├── templates/
 │   ├── base.html
-│   ├── index.html          # Página Human In (/)
-│   ├── planpaz.html        # Página PlanPaz (/planpaz)
+│   ├── planpaz.html        # Página PlanPaz (/)
+│   ├── index.html          # Página Human In (/humanin)
 │   ├── 404.html
 │   └── partials/
 │       └── icons.html      # Macro Jinja2 com ícones SVG Lucide
@@ -53,8 +53,8 @@ python app.py
 ```
 
 Acesse:
-- `http://127.0.0.1:5000/` (Human In)
-- `http://127.0.0.1:5000/planpaz` (PlanPaz)
+- `http://127.0.0.1:5000/` (PlanPaz)
+- `http://127.0.0.1:5000/humanin` (Human In)
 - `http://127.0.0.1:5000/health` (Healthcheck JSON)
 
 > **Nota para Windows:** `gunicorn` depende do módulo `fcntl` (exclusivo de sistemas Unix/Linux) e é executado no Heroku pelo `Procfile`. No Windows, utilize `python app.py` localmente.

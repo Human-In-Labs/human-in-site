@@ -21,29 +21,15 @@ class SiteTestCase(unittest.TestCase):
     def test_wsgi_exposes_app(self):
         self.assertIs(wsgi.app, app)
 
-    def test_index_route(self):
+    def test_root_renders_planpaz(self):
         response = self.client.get("/")
-        self.assertEqual(response.status_code, 200)
-        html = response.get_data(as_text=True)
-
-        self.assertIn("Human In — Tecnologia para a mudança individual", html)
-        self.assertIn("Tecnologia que serve", html)
-        self.assertIn("Andrew Gabriel", html)
-        self.assertIn('href="/planpaz"', html)
-        self.assertIn("data-contact-form", html)
-        self.assertIn("js/main.js", html)
-        self.assertNotIn("lovable-badge", html)
-        self.assertNotIn("__l5e", html)
-
-    def test_planpaz_route(self):
-        response = self.client.get("/planpaz")
         self.assertEqual(response.status_code, 200)
         html = response.get_data(as_text=True)
 
         self.assertIn("PlanPaz — Cultive mudanças, de semente em semente", html)
         self.assertIn("Cultive. Cuide.", html)
         self.assertIn("Madre Teresa de Calcutá", html)
-        self.assertIn('href="/"', html)
+        self.assertIn('href="/humanin"', html)
 
         for img_name in (
             "planpaz-welcome.png",
@@ -57,6 +43,25 @@ class SiteTestCase(unittest.TestCase):
         self.assertNotIn("lovable-badge", html)
         self.assertNotIn("__l5e", html)
 
+    def test_humanin_route(self):
+        response = self.client.get("/humanin")
+        self.assertEqual(response.status_code, 200)
+        html = response.get_data(as_text=True)
+
+        self.assertIn("Human In — Tecnologia para a mudança individual", html)
+        self.assertIn("Tecnologia que serve", html)
+        self.assertIn("Andrew Gabriel", html)
+        self.assertIn('href="/"', html)
+        self.assertIn("data-contact-form", html)
+        self.assertIn("js/main.js", html)
+        self.assertNotIn("lovable-badge", html)
+        self.assertNotIn("__l5e", html)
+
+    def test_planpaz_legacy_redirect(self):
+        response = self.client.get("/planpaz")
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.headers.get("Location"), "/")
+
     def test_health_route(self):
         response = self.client.get("/health")
         self.assertEqual(response.status_code, 200)
@@ -68,7 +73,7 @@ class SiteTestCase(unittest.TestCase):
         html = response.get_data(as_text=True)
         self.assertIn("Página não encontrada", html)
         self.assertIn('href="/"', html)
-        self.assertIn('href="/planpaz"', html)
+        self.assertIn('href="/humanin"', html)
 
     def test_security_headers(self):
         response = self.client.get("/")
